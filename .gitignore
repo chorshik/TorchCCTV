@@ -1,0 +1,5 @@
+data/database/
+data/faces/
+logs/
+.idea
+Pipfile

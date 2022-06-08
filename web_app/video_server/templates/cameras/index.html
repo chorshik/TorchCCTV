@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}Cameras page{% endblock title %}
+
+{% block content%}
+  {% load static %}
+  <div class="row row-tile">
+    <h1 style="text-align: center">Cameras</h1>
+    <div class="col-md-12 tile">
+      <div class="row row-tile text-black">
+        {% for camera in cameras %}
+          <div class="col-md-4 col-sm-4 col-xs-6 tile square ">
+            <div class="tile-content" style="text-align: center">
+              <h2>{{ camera.hostname }}</h2>
+              {% if not camera.is_active%}
+                <img style="width: 480px; height: 480px;" alt="Image description" src="{% static 'images/cameras/plug.png' %}"/>
+              {%else%}
+                <img src="{% url 'video_server:video_stream' hostname=camera.hostname %}" class="img-responsive" width="100%" alt="Responsive image">
+              {% endif %}
+              <p>{{camera.is_active}}</p>
+              <p>{{ camera.hostname }}</p>
+              <p>{{ camera.last_activities | date:"d.m.Y H:i:s" }}</p>
+            </div>
+        </div>
+       {% endfor %}
+      </div>
+    </div>
+  </div>
+
+    <div>
+      <h2>{{ camera.num }}</h2>
+      <p>{{camera.id}}</p>
+      <p>{{camera.is_active}}</p>
+      <p>{{ camera.ip_address }}</p>
+      <p>{{ camera.last_activities | date:"d.m.Y H:i:s" }}</p>
+    </div>
+
+{% endblock content%}

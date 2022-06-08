@@ -1,0 +1,32 @@
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="javascript:void(0)">Logo</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mynavbar">
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="javascript:void(0)">Link</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="javascript:void(0)">Link</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="javascript:void(0)">Link</a>
+            </li>
+          </ul>
+            {% if user.is_admin %}
+                    <div class="badge text-wrap" style="width: 6rem;">
+                        PARASHA
+                    </div>
+            {% endif %}
+            {% if user.is_authenticated %}
+                    <div class="badge text-wrap" style="width: 6rem;">
+                        Welcome, {{ user.get_username }}
+                    </div>
+                    <a href="{% url 'auth_app:logout' %}" class="btn btn-danger">Logout</a>
+            {% endif %}
+        </div>
+      </div>
+    </nav>
