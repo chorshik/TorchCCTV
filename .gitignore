@@ -3,3 +3,4 @@ data/faces/
 logs/
 .idea
 Pipfile
+web_app/core/static

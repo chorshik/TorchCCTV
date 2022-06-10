@@ -15,7 +15,14 @@
               {% if not camera.is_active%}
                 <img style="width: 480px; height: 480px;" alt="Image description" src="{% static 'images/cameras/plug.png' %}"/>
               {%else%}
-                <img src="{% url 'video_server:video_stream' hostname=camera.hostname %}" class="img-responsive" width="100%" alt="Responsive image">
+<!--                {% if messages %}-->
+<!--                    {% for message in messages %}-->
+<!--                      <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>-->
+<!--                    {% endfor %}-->
+<!--                   </ul>-->
+<!--                {%else%}-->
+                    <img src="{% url 'video_server:video_stream' hostname=camera.hostname %}" class="img-responsive" width="100%" alt="Responsive image">
+                {% endif %}
               {% endif %}
               <p>{{camera.is_active}}</p>
               <p>{{ camera.hostname }}</p>

@@ -12,12 +12,11 @@ class WebClient():
     def get_frame(self):
         try:
             msg, frame = self.client.send_msg(msg=bytes(self.hostname, 'UTF-8'))
-            # time.sleep(0.02)
+            time.sleep(0.02)
             if frame is None:
-                print('kek')
                 return None
             ret, frame_jpg = cv2.imencode('.jpg', frame)
             return frame_jpg.tobytes()
 
         except Exception as e:
-            print(e)
+            pass

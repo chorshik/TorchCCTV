@@ -63,6 +63,7 @@ class Server():
     def send_camera_frames(self):
         while True:
             msg = self.client_hub.recv_msg()
+            time.sleep(0.02)
             if msg in self.frameDict:
                 self.client_hub.send_image(self.frameDict[msg], 'OK')
             else:
