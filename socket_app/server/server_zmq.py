@@ -1,6 +1,7 @@
 import time
 from datetime import datetime
 from threading import Thread
+import asyncio
 
 import imutils
 import cv2
@@ -28,25 +29,21 @@ class Server():
         self.ACTIVE_CHECK_PERIOD = 10
         self.ACTIVE_CHECK_SECONDS = self.ESTIMATED_NUM_PIS * self.ACTIVE_CHECK_PERIOD
 
-    def remove_not_active_camera(self):
-        if (datetime.now() - self.lastActiveCheck).seconds > self.ACTIVE_CHECK_SECONDS:
-            for (hostname, ts) in list(self.lastActive.items()):
-                if (datetime.now() - ts).seconds > self.ACTIVE_CHECK_SECONDS:
-                    print("[INFO] lost connection to {}".format(hostname))
-                    self.lastActive.pop(hostname)
-                    self.frameDict.pop(hostname)
-
-                self.lastActiveCheck = datetime.now()
-
-    def remove_not_active_client(self):
-        pass
+    # def remove_not_active_camera(self):
+    #     if (datetime.now() - self.lastActiveCheck).seconds > self.ACTIVE_CHECK_SECONDS:
+    #         for (hostname, ts) in list(self.lastActive.items()):
+    #             if (datetime.now() - ts).seconds > self.ACTIVE_CHECK_SECONDS:
+    #                 print("[INFO] lost connection to {}".format(hostname))
+    #                 self.lastActive.pop(hostname)
+    #                 self.frameDict.pop(hostname)
+    #
+    #             self.lastActiveCheck = datetime.now()
 
     def get_frames(self):
         while True:
             (hostname, frame) = self.image_hub.recv_image()
             self.image_hub.send_reply(b'OK')
 
-            # notify about new connection
             if hostname not in self.lastActive.keys():
                 print("[INFO] receiving data from {}...".format(hostname))
 
@@ -72,12 +69,28 @@ class Server():
     def send_all_cameras_frames(self):
         pass
 
+    def remove_not_active_camera(self):
+        pass
+
+    def remove_not_active_client(self):
+        pass
+
+    def close(self):
+        self.image_hub.close()
+        self.client_hub.close()
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.close()
+
 
 if __name__ == "__main__":
-    server = Server(address_image_hub="tcp://{}:{}".format('127.0.0.1', 9999),
-                    address_client_hub="tcp://{}:{}".format('127.0.0.1', 9998))
+    with Server(address_image_hub="tcp://{}:{}".format('127.0.0.1', 9999),
+                address_client_hub="tcp://{}:{}".format('127.0.0.1', 9998)) as server:
 
-    thread_get_frames = Thread(target=server.get_frames, args=(), daemon=False)
-    thread_get_frames.start()
-    thread_get_frames = Thread(target=server.send_camera_frames(), args=(), daemon=False)
-    thread_get_frames.start()
+        thread_get_frames = Thread(target=server.get_frames, args=(), daemon=False)
+        thread_get_frames.start()
+        thread_get_frames = Thread(target=server.send_camera_frames(), args=(), daemon=False)
+        thread_get_frames.start()

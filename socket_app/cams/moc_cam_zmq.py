@@ -3,8 +3,9 @@ import time
 import cv2
 import os
 import sys
-from pathlib import Path
+import argparse
 
+from pathlib import Path
 sys.path.append(str(Path(__file__).parent.parent.parent))
 import definitions
 from stream_zmq.client_req import Client
@@ -39,21 +40,25 @@ def send_frame(camera, capture, loop, i):
 
 
 if __name__ == "__main__":
-    camera = Client(moc=True, address="tcp://{}:{}".format('127.0.0.1', 9999), num='1', cam=True)
-    i = 0
-    camera_addr = 0
-    loop = False
-    if camera.moc:
-        if os.path.isfile(file):
-            capture = cv2.VideoCapture(file)
-            loop = True
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-n", "--num", type=int)
+    args = parser.parse_args()
+
+    with Client(moc=True, address="tcp://{}:{}".format('127.0.0.1', 9999), num=str(args.num), cam=True) as camera:
+        i = 0
+        camera_addr = 0
+        loop = False
+        if camera.moc:
+            if os.path.isfile(file):
+                capture = cv2.VideoCapture(file)
+                loop = True
+            else:
+                raise FileNotFoundError(errno.ENOENT, os.strerror(errno.ENOENT), file)
         else:
-            raise FileNotFoundError(errno.ENOENT, os.strerror(errno.ENOENT), file)
-    else:
-        capture = cv2.VideoCapture(camera_addr)
+            capture = cv2.VideoCapture(camera_addr)
 
-    time.sleep(0.5)
+        time.sleep(0.5)
 
-    send_frame(camera, capture, loop, i)
+        send_frame(camera, capture, loop, i)
 
 

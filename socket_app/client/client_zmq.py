@@ -1,23 +1,26 @@
 import time
-from datetime import datetime
-from threading import Thread
-
-import imutils
 import cv2
 import sys
-from pathlib import Path
+import argparse
 
+from pathlib import Path
 sys.path.append(str(Path(__file__).parent.parent.parent))
 import definitions
 from stream_zmq.client_req import Client
 
 
 if __name__ == "__main__":
-    client = Client(moc=True, address="tcp://{}:{}".format('127.0.0.1', 9998), num='1', cam=False)
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-n", "--num", type=int)
+    args = parser.parse_args()
+
+    client = Client(moc=True, address="tcp://{}:{}".format('127.0.0.1', 9998), num=str(args.num), cam=False)
+
+    request = 'fedora' + str(args.num)
 
     try:
         while True:
-            msg, frame = client.send_msg(msg=bytes('fedora1', 'UTF-8'))
+            msg, frame = client.send_msg(msg=bytes(request, 'UTF-8'))
             time.sleep(0.03)
             if frame is None:
                 print('kek')
@@ -25,7 +28,7 @@ if __name__ == "__main__":
                 print(f"Client close connection")
                 client.close()
             else:
-                cv2.imshow(f"Client: {client.hostname} host: fedora1 ", frame)
+                cv2.imshow(f"Client: {client.hostname} host: {request} ", frame)
                 key = cv2.waitKey(1) & 0xFF
                 if key == ord("q"):
                     break

@@ -44,11 +44,6 @@ def video_streaming(camera=True, camera_addr=0, host='127.0.0.1', port=9999, loo
                     message = struct.pack("Q", len(a)) + a
                     client_socket.sendall(message)
 
-                    # cv2.imshow(f"TO: {host_ip}:{port}", resize_frame)
-                    # if key == ord('q'):
-                    #     capture.release()
-                    #     cv2.destroyAllWindows()
-                    #     break
                 else:
                     if loop:
                         capture = cv2.VideoCapture(file)
@@ -58,8 +53,6 @@ def video_streaming(camera=True, camera_addr=0, host='127.0.0.1', port=9999, loo
     except Exception as e:
         print(f"DISCONNECTED FROM SERVER")
         client_socket.close()
-        # time.sleep(5)
-        # video_streaming(camera=False, host='127.0.0.1', port=9999, loop=True)
 
 
 thread_cam = Thread(target=video_streaming, args=(False, 0, '127.0.0.1', 9999, True))

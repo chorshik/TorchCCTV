@@ -24,7 +24,7 @@ Video server, client and moc camera console app
 SocketApp based on python socket
 #### ZeroMQ
 
-SocketApp based on ZeroMQ REQ/REP pattern
+SocketApp based on asyncio, ZeroMQ REQ/REP pattern
 ### WebUI
 
 Django project with simple authorization using postgres

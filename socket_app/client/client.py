@@ -57,8 +57,6 @@ def connect_to_server(host='127.0.0.1', port=9998):
         cv2.destroyAllWindows()
 
 
-# connect_to_server('127.0.0.1', 9998)
-
 thread_cam = Thread(target=connect_to_server, args=('127.0.0.1', 9998))
 thread_cam.start()
 thread_cam.join()
