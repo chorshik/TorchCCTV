@@ -15,8 +15,6 @@ class Server():
         self.client_hub = AsyncServer(address=address_client_hub)
 
         self.frameDict = {}
-        self.lastActive = {}
-        self.lastActiveCheck = datetime.now()
 
     async def get_frame(self):
         while True:
@@ -24,11 +22,6 @@ class Server():
             await asyncio.sleep(0.02)
             frame, hostname = data['frame'], data['message']
             await self.image_hub.send_reply(b'OK')
-
-            if hostname not in self.lastActive.keys():
-                print(f"[INFO] receiving data from {hostname}...")
-
-            self.lastActive[hostname] = datetime.now()
 
             cv2.putText(frame, hostname, (10, 25),
                         cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
@@ -49,6 +42,10 @@ class Server():
 
     async def remove_client(self):
         pass
+
+    async def start_event_monitor(self):
+        await self.image_hub.image_hub.event_monitor()
+        await self.client_hub.event_monitor()
 
     @classmethod
     async def ping(cls) -> None:
@@ -75,6 +72,8 @@ if __name__ == "__main__":
 
         tasks = [
             # asyncio.create_task(server.ping()),
+            asyncio.create_task(server.image_hub.event_monitor()),
+            asyncio.create_task(server.client_hub.event_monitor()),
             asyncio.create_task(server.get_frame()),
             asyncio.create_task(server.send_frame()),
         ]
