@@ -11,8 +11,8 @@ from stream_zmq.async_server import AsyncServer
 
 class Server():
     def __init__(self, address_image_hub, address_client_hub):
-        self.image_hub = AsyncServer(address=address_image_hub)
-        self.client_hub = AsyncServer(address=address_client_hub)
+        self.image_hub = AsyncServer(address=address_image_hub, path=Path(__file__).parent.parent, key_name='server')
+        self.client_hub = AsyncServer(address=address_client_hub, path=Path(__file__).parent.parent, key_name='server2')
 
         self.frameDict = {}
 
@@ -43,9 +43,9 @@ class Server():
     async def remove_client(self):
         pass
 
-    async def start_event_monitor(self):
-        await self.image_hub.image_hub.event_monitor()
-        await self.client_hub.event_monitor()
+    # async def start_event_monitor(self):
+    #     await self.image_hub.image_hub.event_monitor()
+    #     await self.client_hub.event_monitor()
 
     @classmethod
     async def ping(cls) -> None:
@@ -72,8 +72,8 @@ if __name__ == "__main__":
 
         tasks = [
             # asyncio.create_task(server.ping()),
-            asyncio.create_task(server.image_hub.event_monitor()),
-            asyncio.create_task(server.client_hub.event_monitor()),
+            # asyncio.create_task(server.image_hub.start_event_monitor()),
+            # asyncio.create_task(server.client_hub.start_event_monitor()),
             asyncio.create_task(server.get_frame()),
             asyncio.create_task(server.send_frame()),
         ]

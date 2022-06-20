@@ -2,7 +2,6 @@ import cv2
 import sys
 import asyncio
 import argparse
-
 from pathlib import Path
 sys.path.append(str(Path(__file__).parent.parent.parent))
 import definitions
@@ -34,9 +33,11 @@ if __name__ == "__main__":
     async def main():
         parser = argparse.ArgumentParser()
         parser.add_argument("-n", "--num", type=int)
+        parser.add_argument("-k", "--key", type=str)
         args = parser.parse_args()
 
-        client = AsyncClient(moc=True, address="tcp://{}:{}".format('127.0.0.1', 9998), num=str(args.num), cam=False)
+        client = AsyncClient(moc=True, address="tcp://{}:{}".format('127.0.0.1', 9998), num=str(args.num), cam=False,
+                             path=Path(__file__).parent.parent, key_name=args.key, server_pub_key='server2')
         request = 'fedora' + str(args.num)
 
         tasks = [

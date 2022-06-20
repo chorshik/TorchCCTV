@@ -49,14 +49,17 @@ if __name__ == "__main__":
     async def main() -> None:
         parser = argparse.ArgumentParser()
         parser.add_argument("-n", "--num", type=int)
+        parser.add_argument("-k", "--key", type=str)
         args = parser.parse_args()
 
-        camera = AsyncClient(moc=True, address="tcp://{}:{}".format('127.0.0.1', 9999), num=str(args.num), cam=True)
+        camera = AsyncClient(moc=True, address="tcp://{}:{}".format('127.0.0.1', 9999), num=str(args.num), cam=True,
+                             path=Path(__file__).parent.parent, key_name=args.key, server_pub_key='server')
 
         camera_addr = 0
         loop_cam = False
 
         tasks = [
+            # asyncio.create_task(camera.start_event_monitor()),
             asyncio.create_task(send_frame(camera, camera_addr, loop_cam)),
         ]
 
