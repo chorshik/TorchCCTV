@@ -41,6 +41,7 @@ if __name__ == "__main__":
         request = 'fedora' + str(args.num)
 
         tasks = [
+            asyncio.create_task(client.start_event_monitor()),
             asyncio.create_task(get_frames(client, request)),
         ]
 

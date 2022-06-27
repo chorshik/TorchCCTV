@@ -24,10 +24,10 @@ Video server, client and moc camera console app
 SocketApp based on python socket
 #### ZeroMQ
 
-SocketApp based on asyncio, ZeroMQ REQ/REP pattern
+SocketApp based on asyncio, ZeroMQ REQ/REP pattern with authentication for clients and server
 ### WebUI
 
-Django project with simple authorization using postgres
+Django ASGI project with simple authorization using postgres and WebSocket for send video
 
 ![Web user interface](images/webui.png)
 

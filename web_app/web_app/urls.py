@@ -14,11 +14,17 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
+from channels.routing import URLRouter
+from video_server.routing import websocket_urlpatterns
 
 urlpatterns = [
     path('', include('core.urls', )),
     path('auth/', include('auth_app.urls')),
     path('cameras/', include('video_server.urls')),
-    path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls, name='admin'),
+]
+
+websocket_urlpatterns = [
+    path('ws/', URLRouter(websocket_urlpatterns)),
 ]

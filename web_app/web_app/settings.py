@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-y@dj#1k74!!gqygi$j1#w41lg)oux&bgw@gj(mm&h6$l#616au
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["localhost"]
 
 
 # Application definition
@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'channels',
     'core.apps.CoreConfig',
     'auth_app.apps.AuthAppConfig',
     'video_server.apps.VideoServerConfig',
@@ -76,6 +77,18 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'web_app.wsgi.application'
 
+ASGI_APPLICATION = 'web_app.asgi.application'
+
+# https://www.youtube.com/watch?v=Qgevy75co8c343
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer",
+        # "CONFIG": {
+        #
+        # },
+    }
+}
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases

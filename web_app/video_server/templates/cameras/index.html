@@ -12,18 +12,12 @@
           <div class="col-md-4 col-sm-4 col-xs-6 tile square ">
             <div class="tile-content" style="text-align: center">
               <h2>{{ camera.hostname }}</h2>
-              {% if not camera.is_active%}
-                <img style="width: 480px; height: 480px;" alt="Image description" src="{% static 'images/cameras/plug.png' %}"/>
-              {%else%}
-<!--                {% if messages %}-->
-<!--                    {% for message in messages %}-->
-<!--                      <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>-->
-<!--                    {% endfor %}-->
-<!--                   </ul>-->
-<!--                {%else%}-->
-                    <img src="{% url 'video_server:video_stream' hostname=camera.hostname %}" class="img-responsive" width="100%" alt="Responsive image">
-                {% endif %}
-              {% endif %}
+               <img style="width: 480px; height: 480px;" alt="Image description" src="{% static 'images/cameras/plug.png' %}"/>
+<!--              {% if not camera.is_active%}-->
+<!--                <img style="width: 480px; height: 480px;" alt="Image description" src="{% static 'images/cameras/plug.png' %}"/>-->
+<!--              {%else%}-->
+<!--                    <img src="{% url 'video_server:video_stream' hostname=camera.hostname %}" class="img-responsive" width="100%" alt="Responsive image">-->
+<!--                {% endif %}-->
               <p>{{camera.is_active}}</p>
               <p>{{ camera.hostname }}</p>
               <p>{{ camera.last_activities | date:"d.m.Y H:i:s" }}</p>

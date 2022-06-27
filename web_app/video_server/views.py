@@ -1,11 +1,8 @@
 import time
-from threading import Thread
 
 from django.contrib.auth.decorators import login_required
 from django.http.response import StreamingHttpResponse, HttpResponseServerError
 from django.shortcuts import render
-from django.contrib import messages
-import cv2
 
 from .models import Camera
 from stream import WebClient
@@ -16,7 +13,14 @@ def index(request):
     cameras = Camera.objects.order_by('id')
     context = {'cameras': cameras}
 
-    return render(request, 'cameras/index.html', context)
+    return render(request, 'cameras/index.html', context=context)
+
+
+@login_required(login_url='auth_app:login')
+def camera_view(request, hostname):
+    return render(request, 'cameras/camera.html', {
+        'hostname': hostname
+    })
 
 
 def gen(web_client, request):

@@ -59,7 +59,7 @@ if __name__ == "__main__":
         loop_cam = False
 
         tasks = [
-            # asyncio.create_task(camera.start_event_monitor()),
+            asyncio.create_task(camera.start_event_monitor()),
             asyncio.create_task(send_frame(camera, camera_addr, loop_cam)),
         ]
 

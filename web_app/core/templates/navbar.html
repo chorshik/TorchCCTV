@@ -18,7 +18,7 @@
           </ul>
             {% if user.is_superuser %}
                     <div class="badge text-wrap" style="width: 6rem;">
-                        <a class="nav-link" href="{% url 'auth_app:logout' %}">admin panel</a>
+                        <a class="nav-link" href="{% url 'admin:index' %}">admin panel</a>
                     </div>
             {% endif %}
             {% if user.is_authenticated %}
@@ -26,6 +26,8 @@
                         Welcome, {{ user.get_username }}
                     </div>
                     <a href="{% url 'auth_app:logout' %}" class="btn btn-danger">Logout</a>
+            {% else%}
+                    <a href="{% url 'auth_app:login' %}" class="btn btn-danger">Login</a>
             {% endif %}
         </div>
       </div>

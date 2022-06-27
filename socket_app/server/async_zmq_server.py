@@ -72,8 +72,8 @@ if __name__ == "__main__":
 
         tasks = [
             # asyncio.create_task(server.ping()),
-            # asyncio.create_task(server.image_hub.start_event_monitor()),
-            # asyncio.create_task(server.client_hub.start_event_monitor()),
+            asyncio.create_task(server.image_hub.start_event_monitor()),
+            asyncio.create_task(server.client_hub.start_event_monitor()),
             asyncio.create_task(server.get_frame()),
             asyncio.create_task(server.send_frame()),
         ]
