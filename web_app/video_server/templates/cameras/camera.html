@@ -11,14 +11,16 @@
             <div class="col-sm-8">
                 <div class="card">
                     <div class="card-body">
-                        <img class="col align-self-center" id='video' src="" alt="stream">
+                        <img class="col align-self-center" id='video' src="">
+                        <input type="hidden" id="cam_off" value="{% static 'images/cameras/plug.png' %}">
+
                     </div>
                 </div>
             </div>
             <div class="col-sm-4">
                 <div class="card">
                     <div class="card-body">
-                       <button onclick="connect()" class="actionButton">Connect</button>
+                        <button class="actionButton" id="disconnect" onclick="">Disconnect</button>
                     </div>
                 </div>
             </div>
@@ -26,10 +28,9 @@
   </div>
 </div>
       <script src="{% static 'js/video_stream.js' %}"></script>
-        <script>
-            function connect() {
+
+        <script >
                 connectSocket()
-            }
-      </script>
+        </script>
 
 {% endblock content%}

@@ -29,7 +29,7 @@ async def send_frame(camera, camera_addr, loop_cam):
     try:
         while True:
             ret, frame = await loop.run_in_executor(None, capture.read)
-            await asyncio.sleep(0.02)
+            await asyncio.sleep(0.002)
             if ret:
                 resized_frame = await loop.run_in_executor(None, cv2.resize, frame, (640, 480))
                 await camera.send_image(resized_frame, camera.hostname)

@@ -14,6 +14,7 @@ async def get_frames(client, request):
             frame, msg = await client.send_msg(msg=bytes(request, 'UTF-8'))
             await asyncio.sleep(0.02)
             if msg == 'camera not found':
+                # print(msg)
                 print(f"Client close connection")
                 client.close()
             else:
@@ -25,7 +26,7 @@ async def get_frames(client, request):
         cv2.destroyAllWindows()
 
     except Exception as e:
-        print(e)
+        print(f'ErrorAsyncClient:{e}')
         client.close()
 
 

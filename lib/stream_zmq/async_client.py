@@ -1,3 +1,5 @@
+import sys
+
 import zmq
 import zmq.asyncio
 import socket
@@ -31,6 +33,7 @@ class AsyncClient():
         self.context = zmq.asyncio.Context()
         self.socket = self.context.socket(self.socketType)
         self.socket.setsockopt(zmq.RCVTIMEO, 1000)  # milliseconds
+        self.socket.setsockopt(zmq.LINGER, -1)
         self.monitor = self.socket.get_monitor_socket()
         # load cert
         self.load_cert()
@@ -76,8 +79,9 @@ class AsyncClient():
         self.init_reqrep_socket()
 
     def close(self):
+        print(f'Client close connection')
         self.socket.close()
-        self.context.term()
+        self.context.destroy()
 
     def __enter__(self):
         return self

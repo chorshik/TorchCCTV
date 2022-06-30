@@ -19,7 +19,7 @@ class Server():
     async def get_frame(self):
         while True:
             data = await self.image_hub.recv_image()
-            await asyncio.sleep(0.02)
+            await asyncio.sleep(0.002)
             frame, hostname = data['frame'], data['message']
             await self.image_hub.send_reply(b'OK')
 
