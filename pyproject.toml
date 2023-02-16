@@ -13,6 +13,7 @@ imutils = "^0.5.4"
 pyyaml = "^6.0"
 torchvision = "^0.14.1"
 scikit-image = "^0.19.3"
+pyzmq = "^25.0.0"
 
 
 [build-system]

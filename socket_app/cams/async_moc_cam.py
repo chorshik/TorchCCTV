@@ -11,7 +11,7 @@ sys.path.append(str(Path(__file__).parent.parent.parent))
 import definitions
 from stream_zmq.async_client import AsyncClient
 
-file = './video_plug.mp4'
+file = './socket_app/cams/video_plug.mp4'
 
 
 async def send_frame(camera, camera_addr, loop_cam):
@@ -66,6 +66,6 @@ if __name__ == "__main__":
         await asyncio.wait(tasks)
 
 
-    general_loop = asyncio.get_event_loop()
+    general_loop = asyncio.new_event_loop()
     general_loop.run_until_complete(main())
     general_loop.close()

@@ -80,7 +80,7 @@ if __name__ == "__main__":
 
         await asyncio.wait(tasks)
 
-    general_loop = asyncio.get_event_loop()
+    general_loop = asyncio.new_event_loop()
     general_loop.run_until_complete(main())
     general_loop.close()
 
