@@ -12,6 +12,3 @@ sys.path.append(str(Path(__file__).parent) + '/web_app')
 
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 CONFIG_LOGGING_PATH = os.path.join(ROOT_DIR, 'config/logging.conf')
-
-# print(ROOT_DIR, '\n')
-# print(CONFIG_LOGGING_PATH, '\n')

@@ -1,6 +1,6 @@
 import logging.config
 
-logging.config.fileConfig("config/logging.conf")
+# logging.config.fileConfig("config/logging.conf")
 logger = logging.getLogger('sdk')
 
 import torch
