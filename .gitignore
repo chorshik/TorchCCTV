@@ -8,3 +8,5 @@ tmp/
 socket_app/certificates
 socket_app/private_keys
 socket_app/public_keys
+.venv
+**/__pycache__/

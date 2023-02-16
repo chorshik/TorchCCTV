@@ -31,4 +31,14 @@ Django ASGI project with simple authorization using postgres and WebSocket for s
 
 ![Web user interface](images/webui.png)
 
-
+## Usage
+#### create certificates
+    python socket_app/create_certificates.py    
+#### run server
+    python socket_app/server/async_zmq_server.py
+#### run moc-camera
+    # -n number of comera, -k name private key file
+    python socket_app/cams/async_moc_cam.py -n 1 -k client2
+#### run client for view video
+    # -n number of comera to connect, -k name private key file
+    python socket_app/client/async_zmq_client.py -n 1 -k client2

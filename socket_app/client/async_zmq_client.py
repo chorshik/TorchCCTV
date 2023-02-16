@@ -1,3 +1,5 @@
+import socket
+
 import cv2
 import sys
 import asyncio
@@ -39,7 +41,7 @@ if __name__ == "__main__":
 
         client = AsyncClient(moc=True, address="tcp://{}:{}".format('127.0.0.1', 9998), num=str(args.num), cam=False,
                              path=Path(__file__).parent.parent, key_name=args.key, server_pub_key='server2')
-        request = 'fedora' + str(args.num)
+        request = socket.gethostname() + str(args.num)
 
         tasks = [
             asyncio.create_task(client.start_event_monitor()),
@@ -49,7 +51,7 @@ if __name__ == "__main__":
         await asyncio.wait(tasks)
 
 
-    general_loop = asyncio.get_event_loop()
+    general_loop = asyncio.new_event_loop()
     general_loop.run_until_complete(main())
     general_loop.close()
 

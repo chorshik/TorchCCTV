@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "torchcctv"
+version = "0.1.0"
+description = ""
+authors = ["Pavel Savvin <p_sawwin@outlook.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+torch = "^1.13.1"
+opencv-python = "^4.7.0.68"
+imutils = "^0.5.4"
+pyyaml = "^6.0"
+torchvision = "^0.14.1"
+scikit-image = "^0.19.3"
+pyzmq = "^25.0.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
