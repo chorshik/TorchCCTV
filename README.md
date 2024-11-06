@@ -19,9 +19,6 @@ Video server, client and moc camera console app
 
 ![ZeroMQ console app](images/socketapp.png)
 
-#### Socket
-
-SocketApp based on python socket
 #### ZeroMQ
 
 SocketApp based on asyncio, ZeroMQ REQ/REP pattern with authentication for clients and server
